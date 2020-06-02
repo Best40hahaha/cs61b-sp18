@@ -10,16 +10,16 @@ public class NBody {
 
 	}
 
+
 	public static Planet [] readPlanets(String path){
 
 		Planet [] allPlanets;
-		allPlanets = new Planet [5];
-
 		In in = new In (path);
 		int planetNum = in.readInt();
 		double radius = in.readDouble();
+		allPlanets = new Planet [planetNum];		
 
-		for (int i = 0; i < 5; i++){
+		for (int i = 0; i < planetNum; i++){
 
 			double xPos = in.readDouble();
 			double yPos = in.readDouble();
