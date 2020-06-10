@@ -7,7 +7,7 @@ public class ArrayDeque<T> {
 	private int size;
 	private int nextFirst;
 	private int nextLast;
-	private T[] Ts;
+	private T[] items;
 	private static double increaseCo = 2;
 	private static double decreaseCo = 0.5;
 	private static double usageLimit = 0.25;
@@ -16,42 +16,42 @@ public class ArrayDeque<T> {
 		size = 0;
 		nextFirst = 4;
 		nextLast = 5;
-		Ts = (T[]) new Object[8];
+		items = (T[]) new Object[8];
 	}
 
 	/*helper method, create a new calculation way for this class*/
 	private int aListNumber(int x){
 		if(x>=0){
-			return x % Ts.length;
+			return x % items.length;
 		}else{
-			return Ts.length - ((-x) % Ts.length);
+			return items.length - ((-x) % items.length);
 		}
 	}
 
 	/*helper method, change the order of this array, start from the zero index*/
 	private T[] stdOrder(){
 		int firstPosition = aListNumber(nextFirst+1);
-		T[] newTs = (T[]) new Object[Ts.length];
+		T[] newitems = (T[]) new Object[items.length];
 		// copy first half of the list
-		System.arraycopy(Ts, firstPosition, newTs, 0, Ts.length-firstPosition);
+		System.arraycopy(items, firstPosition, newitems, 0, items.length-firstPosition);
 		// copy second half of the list
-		System.arraycopy(Ts,0, newTs, Ts.length-firstPosition, firstPosition);
-		return newTs;
+		System.arraycopy(items,0, newitems, items.length-firstPosition, firstPosition);
+		return newitems;
 	}
 
 	/*helper method, judge if the usage of list below our limitation(0.25 in this case)*/
 	private boolean isBelowUsage(){
 		double dSize = this.size;
-		double dLength = this.Ts.length;
+		double dLength = this.items.length;
 		return (dSize/dLength) < usageLimit;
 	}
 
 
 	/*resize the list when necessary, coefficient refers to how many times we resize the list*/
 	private void reSize(double coefficient){
-		T[] stdOrderTs = stdOrder();
-		this.Ts = (T[])new Object[(int) (Ts.length*coefficient)];
-		System.arraycopy(stdOrderTs, 0 , this.Ts, 0, this.size);
+		T[] stdOrderitems = stdOrder();
+		this.items = (T[])new Object[(int) (items.length*coefficient)];
+		System.arraycopy(stdOrderitems, 0 , this.items, 0, this.size);
 		this.nextLast = this.size;
 		this.nextFirst = aListNumber(-1);
 	}
@@ -70,7 +70,7 @@ public class ArrayDeque<T> {
 	public void printDeque(){
 		int index = aListNumber(this.nextFirst + 1);
 		while (index != this.nextLast){
-			System.out.print(Ts[index] + " ");
+			System.out.print(items[index] + " ");
 			index = aListNumber(index + 1);
 		}
 		System.out.println("");
@@ -80,9 +80,9 @@ public class ArrayDeque<T> {
 	/* Add value to the beginning of the list */
 	public void addFirst(T value) {
 		size += 1;
-		Ts[this.nextFirst] = value;
+		items[this.nextFirst] = value;
 		nextFirst = aListNumber(nextFirst - 1);
-		if(this.size == this.Ts.length){
+		if(this.size == this.items.length){
 			reSize(increaseCo);
 		}
 	}
@@ -90,9 +90,9 @@ public class ArrayDeque<T> {
 	/* Add value to the last of the list */
 	public void addLast(T value) {
 		size += 1;
-		Ts[this.nextLast] = value;
+		items[this.nextLast] = value;
 		nextLast = aListNumber(nextLast + 1);
-		if(this.size == this.Ts.length){
+		if(this.size == this.items.length){
 			reSize(increaseCo);
 		}
 	}
@@ -105,8 +105,8 @@ public class ArrayDeque<T> {
 			size = 0;
 		}
 		nextFirst = aListNumber(nextFirst+1);
-		T originFirst = Ts[nextFirst];
-		Ts[nextFirst] = null;
+		T originFirst = items[nextFirst];
+		items[nextFirst] = null;
 		if(isBelowUsage()){
 			reSize(0.5);
 		}
@@ -120,9 +120,9 @@ public class ArrayDeque<T> {
 		}else{
 			size = 0;
 		}
-		nextLast -= 1;
-		T originLast = Ts[nextLast];
-		Ts[nextLast] = null;
+		nextLast = aListNumber(nextLast-1);
+		T originLast = items[nextLast];
+		items[nextLast] = null;
 		if(isBelowUsage()){
 			reSize(0.5);
 		}
@@ -131,13 +131,12 @@ public class ArrayDeque<T> {
 
 	/*returns the value of corresponding index in our list*/
 	public T get(int index){
+		if(index>this.size() || index<0){
+			return null;
+		}
 		int first = aListNumber(this.nextFirst+1);
 		int realIndex = aListNumber(index+ first);
-		return this.Ts[realIndex];
+		return this.items[realIndex];
 	}
-
-	public static void main(String[] args) {
-
-	}
-
+	
 }

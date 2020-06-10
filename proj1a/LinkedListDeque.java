@@ -28,13 +28,6 @@ public class LinkedListDeque<T> {
 		this.size = 0;
 	}
 
-	//constructor
-	public LinkedListDeque(T value){
-		NakedLList item = new NakedLList(value, sentinel, sentinel);
-		this.sentinel.backPointer = item;
-		this.sentinel.frontPointer = item;
-		this.size = 1;
-	}
 
 	/* add a new item at the first of the list*/
 	public void addFirst(T v){
@@ -112,7 +105,7 @@ public class LinkedListDeque<T> {
 	}
 
 	/*helper method for getRecursive*/
-	public NakedLList getRecursiveList(int index){
+	private NakedLList getRecursiveList(int index){
 		if ((index < 0) || (index >= this.size)){
 			return null;
 		}
