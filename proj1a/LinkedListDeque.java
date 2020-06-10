@@ -3,15 +3,15 @@
  * @description：create a double linked list deque
  * @date ：6/7/2020 10:20 PM
  */
-public class LinkedListDeque<SpecificType> {
+public class LinkedListDeque<T> {
 
 	// build a naked linked list first, then wear clothes on it.
 	private class NakedLList{
-		public SpecificType value;
+		public T value;
 		public NakedLList frontPointer;
 		public NakedLList backPointer;
 
-		public NakedLList(SpecificType v, NakedLList p1, NakedLList p2){
+		public NakedLList(T v, NakedLList p1, NakedLList p2){
 			this.value = v;
 			this.backPointer = p1;
 			this.frontPointer = p2;
@@ -29,7 +29,7 @@ public class LinkedListDeque<SpecificType> {
 	}
 
 	//constructor
-	public LinkedListDeque(SpecificType value){
+	public LinkedListDeque(T value){
 		NakedLList item = new NakedLList(value, sentinel, sentinel);
 		this.sentinel.backPointer = item;
 		this.sentinel.frontPointer = item;
@@ -37,7 +37,7 @@ public class LinkedListDeque<SpecificType> {
 	}
 
 	/* add a new item at the first of the list*/
-	public void addFirst(SpecificType v){
+	public void addFirst(T v){
 
 		NakedLList item = new NakedLList(v, sentinel, sentinel.frontPointer);
 		sentinel.frontPointer = item;
@@ -46,7 +46,7 @@ public class LinkedListDeque<SpecificType> {
 	}
 
 	/* add a new item at the last of the list*/
-	public void addLast(SpecificType v){
+	public void addLast(T v){
 
 		NakedLList item = new NakedLList(v, sentinel.backPointer, sentinel);
 		sentinel.backPointer = item;
@@ -76,7 +76,7 @@ public class LinkedListDeque<SpecificType> {
 	}
 
 	/*remove the first item from the list*/
-	public SpecificType removeFirst(){
+	public T removeFirst(){
 		if (!isEmpty()){
 			this.size -= 1;
 		}
@@ -87,7 +87,7 @@ public class LinkedListDeque<SpecificType> {
 	}
 
 	/*remove the last item from the list*/
-	public SpecificType removeLast(){
+	public T removeLast(){
 		if(!isEmpty()){
 			this.size -= 1;
 		}
@@ -99,7 +99,7 @@ public class LinkedListDeque<SpecificType> {
 
 	/*return the value by index, if such index doesn't exist, return null
 	* this method adopts iteration way*/
-	public SpecificType get(int index){
+	public T get(int index){
 		if ((index < 0) || (index >= this.size)){
 			return null;
 		}
@@ -125,11 +125,11 @@ public class LinkedListDeque<SpecificType> {
 
 	/*return the value by index, if such index doesn't exist, return null
 	 * this method adopts recursive way*/
-	public SpecificType getRecursive(int index){
+	public T getRecursive(int index){
 		if (this.getRecursiveList(index) == null){
 			return null;
 		}
 		return this.getRecursiveList(index).value;
 	}
-	
+
 }
