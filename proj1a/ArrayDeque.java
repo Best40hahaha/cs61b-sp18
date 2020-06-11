@@ -43,6 +43,9 @@ public class ArrayDeque<T> {
 	private boolean isBelowUsage(){
 		double dSize = this.size;
 		double dLength = this.items.length;
+		if(dLength==0){
+			return false;
+		}
 		return (dSize/dLength) < usageLimit;
 	}
 
@@ -107,7 +110,7 @@ public class ArrayDeque<T> {
 		nextFirst = aListNumber(nextFirst+1);
 		T originFirst = items[nextFirst];
 		items[nextFirst] = null;
-		if(isBelowUsage()){
+		if(isBelowUsage() && this.size()>=16){
 			reSize(0.5);
 		}
 		return originFirst;
@@ -123,7 +126,7 @@ public class ArrayDeque<T> {
 		nextLast = aListNumber(nextLast-1);
 		T originLast = items[nextLast];
 		items[nextLast] = null;
-		if(isBelowUsage()){
+		if(isBelowUsage() && this.size()>=16){
 			reSize(0.5);
 		}
 		return originLast;
@@ -138,5 +141,5 @@ public class ArrayDeque<T> {
 		int realIndex = aListNumber(index+ first);
 		return this.items[realIndex];
 	}
-	
+
 }
