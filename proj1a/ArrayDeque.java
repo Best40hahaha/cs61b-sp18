@@ -110,7 +110,7 @@ public class ArrayDeque<T> {
 		nextFirst = aListNumber(nextFirst+1);
 		T originFirst = items[nextFirst];
 		items[nextFirst] = null;
-		if(isBelowUsage() && this.size()>=8){
+		if(isBelowUsage() && this.items.length>=16){
 			reSize(0.5);
 		}
 		return originFirst;
@@ -126,7 +126,7 @@ public class ArrayDeque<T> {
 		nextLast = aListNumber(nextLast-1);
 		T originLast = items[nextLast];
 		items[nextLast] = null;
-		if(isBelowUsage() && this.size()>=8){
+		if(isBelowUsage() && this.items.length>=16){
 			reSize(0.5);
 		}
 		return originLast;
