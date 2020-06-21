@@ -5,13 +5,13 @@
  */
 public class OffByN implements CharacterComparator {
 
-	public int number;
+	private int number;
 
 	public OffByN(int N){
 		number = N;
 	}
 
-	public static int abs(int value){
+	private static int abs(int value){
 		if(value >= 0){
 			return value;
 		}

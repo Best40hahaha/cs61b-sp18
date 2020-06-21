@@ -5,7 +5,7 @@
  */
 public class OffByOne implements CharacterComparator{
 
-	public static int abs(int value){
+	private static int abs(int value){
 		if(value >= 0){
 			return value;
 		}

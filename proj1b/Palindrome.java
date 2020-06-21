@@ -15,7 +15,7 @@ public class Palindrome {
 		return d;
 	}
 
-	public String sub(String word){
+	private String sub(String word){
 		return word.substring(1, word.length() - 1);
 	}
 
@@ -40,12 +40,5 @@ public class Palindrome {
 			return false;
 		}
 		return isPalindrome(sub(word), cc);
-	}
-
-	public static void main(String[] args) {
-		Palindrome p = new Palindrome();
-		Deque<Character> d = p.wordToDeque("word");
-		System.out.println(p.isPalindrome(""));
-		System.out.println('b'-'a');
 	}
 }
