@@ -4,15 +4,15 @@ ArrayDeque:
 
 Q: Give an example of at least one idea from the staff solution that would have made your solution better (if any).
 
-A: 
+A: resize, to double the size is really amazing, originally, I just add one/ten naively.
 
 Q: What's something you felt proud of in your code, if anything?
 
-A:
+A: (1) add lots of vars to avoid magic numbers in the methods; (2) create a new calculation way uniquely for the list.
 
 Q: What's something that was particularly inelegant in your code, if anything?
 
-A:
+A: to deal with the index part, I divid them into 2 parts and do copy & paste work
 
 Q: What did you learn by talking to your partner about writing ArrayDeque?
 
@@ -20,11 +20,11 @@ A:
 
 Q: What do you wish you would have known before writing ArrayDeque, if anything?
 
-A:
+A: to deal with the index part
 
 Q: If you wrote ArrayDeque again, what would you do differently, if anything?
 
-A:
+A: nothing actually
 
 -----
 
@@ -32,15 +32,15 @@ LinkedListDeque:
 
 Q: Give an example of at least one idea from the staff solution that would have made your solution better (if any).
 
-A: 
+A: the pointer part / recursive way 
 
 Q: What's something you felt proud of in your code, if anything?
 
-A:
+A: do several methods in recursive way
 
 Q: What's something that was particularly inelegant in your code, if anything?
 
-A:
+A: some pointer treatment is tedious
 
 Q: What did you learn by talking to your partner about writing LinkedListDeque?
 
@@ -48,11 +48,11 @@ A:
 
 Q: What do you wish you would have known before writing LinkedListDeque, if anything?
 
-A:
+A: more pointer practice
 
 Q: If you wrote LinkedListDeque again, what would you do differently, if anything?
 
-A:
+A: cleaner treatment for the pointer part
 
 -----
 
@@ -60,4 +60,4 @@ Meta:
 
 Q: Did you like this design review process? Anything we should do differently next time?
 
-A: 
+A: yes
