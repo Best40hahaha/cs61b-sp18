@@ -27,8 +27,8 @@ public class TestArrayDequeGold {
 				record.addFirst("addFirst(" + i +")");
 			} else if (numberBetweenZeroAndOne <0.75) {
 				try{
-					int x = sad1.removeFirst();
-					int y = sad2.removeFirst();
+					Integer x = sad1.removeFirst();
+					Integer y = sad2.removeFirst();
 					record.addFirst("removeFirst()");
 					assertEquals("\n" + record.get(2) + "\n" + record.get(1) + "\n" + record.get(0), x, y);
 				} catch (Exception e){
@@ -37,8 +37,8 @@ public class TestArrayDequeGold {
 
 			} else if (numberBetweenZeroAndOne < 1){
 				try{
-					int x = sad1.removeLast();
-					int y = sad2.removeLast();
+					Integer x = sad1.removeLast();
+					Integer y = sad2.removeLast();
 					record.addFirst("removeLast()");
 
 					assertEquals("\n" + record.get(2) + "\n" + record.get(1) + "\n" + record.get(0), x, y);
