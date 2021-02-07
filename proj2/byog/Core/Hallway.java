@@ -15,16 +15,20 @@ import java.util.Random;
  * @date ：7/1/2020 10:20 PM
  */
 public class Hallway {
-	/*all of the hallway is height changed first**/
+	/*Hallway*/
 	private Position startPos;
 	private Position endPos;
+	private Room room1;
+	private Room room2;
 	private Position infection;
 	private Direction direction;
 
 
-	public Hallway(Position start, Position end){
+	public Hallway(Room r1, Room r2, Position start, Position end){
 		this.startPos = start;
 		this.endPos = end;
+		this.room1 = r1;
+		this.room2 = r2;
 		this.direction = new Direction(start, end);
 		if(start.widthPosition == end.widthPosition || start.heightPosition == end.heightPosition){
 			infection = null;
@@ -68,7 +72,10 @@ public class Hallway {
 
 	/*return the floor space this hallway occupied**/
 	public List<Position> floorSpace(){
-		return way(this.startPos, this.endPos);
+		List<Position> space = way(this.startPos, this.endPos);
+		space.removeAll(this.room1.floor());
+		space.removeAll(this.room2.floor());
+		return space;
 	}
 
 	private List<Direction> momentum(List<Position> track){
@@ -81,58 +88,58 @@ public class Hallway {
 	}
 
 	/*return the total space this hallway occupied**/
-	public List<Position> totalSpace(){
-		List<Position> t = this.floorSpace();
-		t.addAll(this.wallSpace());
-		return t;
-	}
+//	public List<Position> totalSpace(){
+//		List<Position> t = this.floorSpace();
+//		t.addAll(this.wallSpace());
+//		return t;
+//	}
 
 	/*return the wall space this hallway occupied**/
-	public List<Position> wallSpace(){
-		List<Position> w = new ArrayList<>();
-		List<Position> f = this.floorSpace();
-		List<Direction> mo = this.momentum(floorSpace());
-		Position nearStart;
-		Position nearEnd;
-		if(mo.size() == 0){
-			nearStart = this.startPos;
-			nearEnd = this.endPos;
-		}else{
-			nearStart = this.startPos.moveBack(mo.get(0));
-			nearEnd = this.endPos.move(mo.get(mo.size() - 1));
-		}
+//	public List<Position> wallSpace(){
+//		List<Position> w = new ArrayList<>();
+//		List<Position> f = this.floorSpace();
+//		List<Direction> mo = this.momentum(floorSpace());
+//		Position nearStart;
+//		Position nearEnd;
+//		if(mo.size() == 0){
+//			nearStart = this.startPos;
+//			nearEnd = this.endPos;
+//		}else{
+//			nearStart = this.startPos.moveBack(mo.get(0));
+//			nearEnd = this.endPos.move(mo.get(mo.size() - 1));
+//		}
+//
+//		for(Position i : f){
+//			for(Position j : i.around()){
+//				if(!(j.include(w) || j.include(f) || j.equals(nearStart) || j.equals(nearEnd))){
+//					w.add(j);
+//				}
+//			}
+//		}
+//		if(this.infection == null){
+//			return w;
+//		}
+//		// make the infection part more juicy
+//		List<Position> angle = new ArrayList<>();
+//		angle.add(new Position(this.infection.widthPosition - 1, this.infection.heightPosition + 1));
+//		angle.add(new Position(this.infection.widthPosition - 1, this.infection.heightPosition - 1));
+//		angle.add(new Position(this.infection.widthPosition + 1, this.infection.heightPosition + 1));
+//		angle.add(new Position(this.infection.widthPosition + 1, this.infection.heightPosition - 1));
+//		for(Position i : angle){
+//			if((!(i.include(w) || i.include(f))) && i.within(Game.WIDTH, Game.HEIGHT)){
+//				w.add(i);
+//			}
+//		}
+//		return w;
+//	}
 
-		for(Position i : f){
-			for(Position j : i.around()){
-				if(!(j.include(w) || j.include(f) || j.equals(nearStart) || j.equals(nearEnd))){
-					w.add(j);
-				}
-			}
-		}
-		if(this.infection == null){
-			return w;
-		}
-		// make the infection part more juicy
-		List<Position> angle = new ArrayList<>();
-		angle.add(new Position(this.infection.widthPosition - 1, this.infection.heightPosition + 1));
-		angle.add(new Position(this.infection.widthPosition - 1, this.infection.heightPosition - 1));
-		angle.add(new Position(this.infection.widthPosition + 1, this.infection.heightPosition + 1));
-		angle.add(new Position(this.infection.widthPosition + 1, this.infection.heightPosition - 1));
-		for(Position i : angle){
-			if((!(i.include(w) || i.include(f))) && i.within(Game.WIDTH, Game.HEIGHT)){
-				w.add(i);
-			}
-		}
-		return w;
-	}
-
-	public static void main(String[] args) {
-		Position start = new Position(10,5);
-		Position end = new Position(5,10);
-		Hallway h = new Hallway(start, end);
-
-		for(Position i : h.floorSpace()){
-			System.out.println(i);
-		}
-	}
+//	public static void main(String[] args) {
+//		Position start = new Position(10,5);
+//		Position end = new Position(5,10);
+//		Hallway h = new Hallway(start, end);
+//
+//		for(Position i : h.floorSpace()){
+//			System.out.println(i);
+//		}
+//	}
 }

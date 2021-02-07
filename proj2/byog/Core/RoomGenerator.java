@@ -40,7 +40,8 @@ public class RoomGenerator {
 
 		// not valid if the room itself is a line
 		HashMap<String, Integer> size = room.sizeValue();
-		if((size.get("minHeight") == size.get("maxHeight")) || (size.get("minWidth") == size.get("maxWidth"))){
+		if((size.get("minHeight").equals(size.get("maxHeight"))) || (size.get("minWidth")
+				.equals(size.get("maxWidth")))){
 			return false;
 		}
 
@@ -54,6 +55,7 @@ public class RoomGenerator {
 		return true;
 	}
 
+	/* sizePara: how big the room is */
 	public Room genRoom(long seed, double sizePara){
 
 		Random RANDOM = new Random(seed);
@@ -67,9 +69,8 @@ public class RoomGenerator {
 		int y2 = (int) RandomUtils.gaussian(RANDOM, y1, sizePara*0.8);
 
 		Position p2 = new Position(x2, y2);
-		Room room = new Room(p1, p2);
 
-		return room;
+		return new Room(p1, p2);
 	}
 
 	public List<Room> genRooms(double sizePara){

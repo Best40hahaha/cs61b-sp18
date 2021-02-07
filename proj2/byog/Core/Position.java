@@ -1,5 +1,7 @@
 package byog.Core;
 
+import java.lang.reflect.GenericArrayType;
+import java.util.Arrays;
 import javafx.geometry.Pos;
 
 import java.util.ArrayList;
@@ -17,8 +19,12 @@ public class Position{
 	int widthPosition;
 	int heightPosition;
 	public Position(int widthPosition, int heightPosition){
-		this.widthPosition = widthPosition;
-		this.heightPosition = heightPosition;
+			this.widthPosition = Math.max(widthPosition, 0);
+			this.widthPosition = Math.min(widthPosition, Game.WIDTH);
+
+			this.heightPosition = Math.max(heightPosition, 0);
+			this.heightPosition = Math.min(heightPosition, Game.HEIGHT);
+
 	}
 
 	public boolean include(Iterable<Position> p){
@@ -65,25 +71,74 @@ public class Position{
 	}
 
 	/*returns the position around it**/
-	public List<Position> around(){
-		List<Position> a = new ArrayList<>();
-		if(this.widthPosition > 0){
-			Position left = new Position(this.widthPosition - 1, this.heightPosition);
-			a.add(left);
+	public List<Position> around(int width, int height){
+		List<Position> space = new ArrayList<>();
+		int [] paras = {-1, 0, 1};
+		for (int i : paras) {
+			for (int j : paras) {
+				if (i == 0 & j ==0) {
+					continue;
+				}
+				Position p = new Position(this.widthPosition + i, this.heightPosition + j);
+				if (p.within(width, height)) {
+					space.add(p);
+				}
+			}
 		}
-		if(this.heightPosition > 0){
-			Position bottom = new Position(this.widthPosition, this.heightPosition -1);
-			a.add(bottom);
+
+		return space;
+	}
+
+	/*returns the position around it**/
+	public List<Position> around(int width, int height, String category){
+
+		List<String> categoryList = Arrays.asList("all", "cross");
+		assert categoryList.contains(category);
+		List<Position> space = new ArrayList<>();
+		int [] paras = {-1, 0, 1};
+		for (int i : paras) {
+			for (int j : paras) {
+				if (i == 0 & j ==0) {
+					continue;
+				}
+				if (category.equals("cross") && i*j != 0) {
+					continue;
+				}
+				Position p = new Position(this.widthPosition + i, this.heightPosition + j);
+				if (p.within(width, height)) {
+					space.add(p);
+				}
+			}
 		}
-		if(this.widthPosition < Game.WIDTH){
-			Position right = new Position(this.widthPosition + 1, this.heightPosition);
-			a.add(right);
+
+		return space;
+	}
+
+	/*returns the position around it**/
+	public List<Position> around(String category){
+
+		int width = Game.WIDTH;
+		int height = Game.HEIGHT;
+		List<String> categoryList = Arrays.asList("all", "cross");
+		assert categoryList.contains(category);
+		List<Position> space = new ArrayList<>();
+		int [] paras = {-1, 0, 1};
+		for (int i : paras) {
+			for (int j : paras) {
+				if (i == 0 & j ==0) {
+					continue;
+				}
+				if (category.equals("cross") && i*j != 0) {
+					continue;
+				}
+				Position p = new Position(this.widthPosition + i, this.heightPosition + j);
+				if (p.within(width, height)) {
+					space.add(p);
+				}
+			}
 		}
-		if(this.heightPosition < Game.HEIGHT){
-			Position top = new Position(this.widthPosition, this.heightPosition + 1);
-			a.add(top);
-		}
-		return a;
+
+		return space;
 	}
 
 
@@ -110,8 +165,8 @@ public class Position{
 
 
 	public static void main(String[] args) {
-		Position p = new Position(1,1);
-		List<Position> a = p.around();
+		Position p = new Position(1,0);
+		List<Position> a = p.around(80,30, "cross");
 		for(Position i : a){
 			System.out.println(i);;
 		}
